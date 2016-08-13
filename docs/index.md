@@ -1,40 +1,43 @@
-Welcome to Ember-CLI 101 workshop hosted by [San Diego Ember][san diego ember].
+Welcome to **Free Ember Workshop** hosted by [Ember.js Louisville](emberlou).
 
 # Pre-event setup instructions
 
-0. [Install Git][git-scm]
-0. [Install Node.js][node-install]
-0. Setup NPM for non-sudo installation
-    0. The easiest way to do this is by checking out [this awesome shell script][npm-no-sudo-script] that will do it for you
-    0. NPM is the node package manager. It will automatically be installed when you install node.
-    0. NPM installs packages locally (within the directory it is invoked in) for per-project modules, or globally for packages you want accessible everywhere.
-    0. However, by default NPM installs global packages in a root-restricted location, requiring SUDO to install. This creates a huge headache. As an alternative, before you install any packages, follow [this guide][npm-g-without-sudo] to configure your NPM to install in your home directory without requiring sudo.
-0. Install [Bower][bower]: `npm i -g bower`
-0. Install [Ember-CLI][ember-cli]: `npm i -g ember-cli`
-0. And create a new project named `workshop`: `ember new workshop`
-0. Move into the `workshop` directory: `cd workshop`
+[![Ember Setup Instructions](images/video-title.png)](https://vimeo.com/174148994)
+
+0. Install **nvm** by pasting the following command into your terminal window: 
+	* `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | bash`
+	* Once installed, you need to either close your terminal window and open a new one or source your new changes as shown in the video above.
+0. Install **node** with nvm by pasting the following command into your terminal window:
+	* `nvm install node`
+0. Install **Ember** by pasting the following command into your terminal window: 
+	* `npm install -g ember-cli`
+0. You're ready to create a new project named **workshop** by pasting the following command into your terminal window: 
+	* `ember new workshop`
+0. Move into the **workshop** directory, and you're ready to get started!
+	* `cd workshop`
 
 # Reduce the glue
 
-Web application development can involve a lot of repetition.  Attempts to reduce the repetition involved in web development has given rise to a variety of scaffolding tools and best practices. These scaffolding tools are all trying to do the same thing: reduce the amount of work necessary to "get started" by providing a set of "best practices" that are enabled default.  These choices include things like:
+Web application development can involve a lot of repetition.  Attempts to reduce this repetition gave rise to a variety of scaffolding tools and best practices. These scaffolding tools are trying to reduce the amount of work necessary to get started by providing a set of best practices that are enabled default.  
 
-0. Application directory structure
-0. Generators for common components
-0. Modularity choices (AMD/node modules/etc)
-0. Build system
-0. Asset compilation & minification
-0. Testing framework and setup
+Choices that are oftentimes left to developers include:
 
-# Ember-CLI
+* Setting up an application's directory structure
+* Creating generators for common scenarios
+* Determining which build system to use
+* Compiling and minifying assets
+* Chooing a testing framework
 
-[Ember-CLI][ember-cli] provides choices for all of the aforementioned areas.  We'll dive into some of these choices in more detail later but at a high level Ember-CLI builds in:
+# Ember CLI
 
-0. A directory structure which we'll explore more later
-0. Generators for all common components
-0. ES6 modules transpiled to AMD
-0. Broccoli build tool for builds. (Fast and extensible with plugin architecture
-0. Asset minification also via Broccoli
-0. QUnit for testing
+[Ember CLI][ember-cli] is a command line interface (CLI) that helps manage and enforce conventions of the Ember framework. We'll dive into these choices in more detail later, but at a high level Ember-CLI builds in:
+
+* A broccoli-powered asset pipeline
+* A strong conventional project structure
+* A powerful addon system for extending Ember
+* The QUnit testing framework
+* Dependency Management
+* Runtime configuration options
 
 # Modules
 
@@ -53,7 +56,7 @@ Modules allow you to divide logical portions of code into smaller, functional pi
 
 [bower]: http://bower.io/
 [ember-cli]: http://ember-cli.com
-[san diego ember]: http://www.meetup.com/sandiego-ember/
+[emberlou]: https://www.meetup.com/Ember-js-Louisville/
 [npm-g-without-sudo]: https://github.com/sindresorhus/guides/blob/master/npm-global-without-sudo.md
 [node-install]: https://nodejs.org/download/
 [git-scm]: http://git-scm.com/downloads

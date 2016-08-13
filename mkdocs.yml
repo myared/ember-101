@@ -8,3 +8,4 @@ pages:
 - Blog Post: blog-post.md
 - Commenting: comments.md
 - What's Next & Thanks: next.md
+extra_css: [extra.css]
