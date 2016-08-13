@@ -1,9 +1,6 @@
 # Feedback
 
-https://hbrysiewicz.typeform.com/to/DMKtHS
-
-Please take 2 minutes to complete our breif workshop feedback form!
-
+Please take 2 minutes to complete our breif workshop feedback [form](link)!
 
 # Where do I go next?
 
@@ -11,28 +8,9 @@ There are many great resources available to continue your learning with Ember. T
 
 The Ember guides are great for diving deep once you understand the fundamentals. They're also versioned so you can be sure you're looking at accurate information for whatever version you happen to be working with.
 
-# Thanks to everyone who helped out
+# Special thanks
 
-## Echobind - Sponsors
-
-## Instructors
-
-### Michael Yared
-
-### Heather Brysiewicz
-
-### Josh Smith
-
-### Xavier Lange
-
-### Trey Hunner
-
-### Scott Newcomer
-
-### Drew Purdy
-
-### Benjamin Rhodes
-
-### Matt Schick
+Thank you to our sponor [Echobind](https://echobind.com) and our host
+[TekSystems](https://www.teksystems.com/en/locations/united-states/kentucky/louisville).
 
 [rnr-ember]: http://balinterdi.com/rock-and-roll-with-emberjs/

@@ -5,7 +5,7 @@ Now that we have posts, are able to list them, and view individual posts we woul
 We've seen how to use `ember generate model` before to create our models. In this case, we want the comment to be a `string`, and our Rails API defines the content of these comments as `content`.
 
 ```console
-$ ember generate model comment content:string
+$ ember generate model comment
 installing model
   create app/models/comment.js
 installing model-test
@@ -19,8 +19,15 @@ import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 
 export default Model.extend({
-  content: attr('string')
 });
+```
+
+Although we could have specified content when generating the model, let's add it
+by hand instead. Inside of the `Model.extend` object, let's drop in the
+necessary line.
+
+```js
+  content: attr('string')
 ```
 
 But our comments need to be aware of our blog posts, and vice versa. We're going to add a one-to-many relationship which is built into Ember Data for us. In order to use it, we need to import the base ember-data module.
@@ -28,19 +35,28 @@ But our comments need to be aware of our blog posts, and vice versa. We're going
 The comments need a `belongsTo` since a comment belongs to a blog post:
 
 ```js
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
 import DS from 'ember-data';
 
 const { belongsTo } = DS;
-
-export default Model.extend({
-  content: attr('string'),
-  blogPost: belongsTo('blog-post')
-});
 ```
 
-Whereas the blog posts need a `hasMany` since a blog post has many comments:
+> All Ember Data methods and functions are defined inside of this namespace (DS).
+
+Now that we have access to Ember Data methods, we can pull out belongsTo to
+setup our relationship. Just like `content`, place this inside the object inside
+the `Model.extend` call. 
+
+```js
+  blogPost: belongsTo('blog-post')
+```
+
+What about the relationship from a blog to comments? We need to add that
+relationship as well.
+
+First, you'll need to import `DS` again, gain access to the `hasMany` method,
+then finally make that `hasMany` connection to comment. 
+
+Try to repeat what you saw above **first** and compare to the solution below.
 
 ```js
 import Model from 'ember-data/model';
@@ -86,7 +102,7 @@ For the same block in `tests/unit/models/comment-test.js`, to tell Ember about t
 
 # Show comments on a blog post
 
-Let's get comments to show up on a blog post by adding to our `app/templates/blog-post.hbs`:
+Now let's get comments to show up on a blog post by adding to our `app/templates/blog-post.hbs`:
 
 ```handlebars
 <article>
@@ -108,7 +124,12 @@ We first loop through all the `model.comments` with Ember's each syntax, definin
 
 But we also want a good user experience for our readers. They need to know when comments are being loaded and when there aren't any comments at all!
 
-For the loading case, we have to think about sort of object our `model.comments` happens to be. It's a [`PromiseManyArray`][promise-many-array], and in our templates we can hook into the loading states made available by [`PromiseProxyMixin`][promise-proxy-mixin]. The available states are:
+Thankfully Ember makes it possible to know when we're in a number of states
+including when we're loading. Because of the type of object `model.comments` is,
+we have access to methods that tell us what state it's in. Have we gotten the
+comments back? Are we still waiting for the API to return them? It's all made
+possibly by Ember. Under the hood, comments are a [`PromiseManyArray`][promise-many-array], and in our templates we can hook into the loading states made available by [`PromiseProxyMixin`][promise-proxy-mixin]. The available states are:
+
 * `isPending`
 * `isSettled`
 * `isRejected`
@@ -173,7 +194,7 @@ Let's add this new component to our `blog-post.hbs`
 {{comment-form}}
 ```
 
-Now if we open up our `comment-form.hbs` component template we can add in our form. When we open this up, we'll initially see a `{{yeild}}` statement. Components can either be rendered alone or can wrap in a block form. For our example we're going to keep it simple and render only the component. Replace the existing `{{yield}}` statement with the fllowing:
+Now if we open up our `comment-form.hbs` component template we can add in our form. When we open this up, we'll initially see a `{{yield}}` statement. Components can either be rendered alone or can wrap in a block form. For our example we're going to keep it simple and render only the component. Replace the existing `{{yield}}` statement with the following:
 
 ```handlebars
 <form {{action 'saveComment' on='submit'}}>
