@@ -1,9 +1,9 @@
 # Blog post model
 
-For our test application, we're going to create a blog. Let's start off by using a generator to create a model for the blogPost. We'll give it a couple of basic fields and take a look at what happens.
+For our test application, we're going to create a blog. Let's start off by using a generator to create a model for the blogPost.
 
 ```console
-$ ember generate model blog-post title:string body:string
+$ ember generate model blog-post
 installing model
   create app/models/blog-post.js
 installing model-test
@@ -17,8 +17,6 @@ import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 
 export default Model.extend({
-  title: attr('string'),
-  body: attr('string')
 });
 ```
 
@@ -26,7 +24,21 @@ What is that funky syntax?  `import Model from 'ember-data/model` and `export de
 
 Those `import` and `export` statements use ECMAScript 6 module syntax. Thanks to the magic of transpilers, we can already use them today even though no browsers support ES6 yet. This should look familiar if you have used Node.js or AMD modules, there's just slightly different syntax.  We're importing a module from 'ember-data/model' and calling it `Model`.  Then we're extending the `Model` class and using that as our module export.
 
-Our model specifies every field it should have, in this case `title` and `body`.  If we later decide we want another field (perhaps a published date) we just need to add it to our model:
+Now each model should specify the fields that each object of that type contains. In our case, we want a
+blog to include a `title` and a `body`. These are both `string` fields but maybe
+we should keep track of when a blog post was published. We'll call that
+`publishedDate` and no surprise - it's a field of type `date`.
+
+Inside of the `Model.extend({})` object, we can pass the necessary lines that
+add these fields. 
+
+```js
+  title: attr('string'),
+  body: attr('string'),
+  publishedDate: attr('date')
+```
+
+Your file should now look like the following.
 
 ```js
 import Model from 'ember-data/model';
