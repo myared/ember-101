@@ -1,38 +1,28 @@
 # Feedback
 
-https://hbrysiewicz.typeform.com/to/DMKtHS
+Please take a couple minutes to complete our brief [workshop feedback form][form]!
 
-Please take 2 minutes to complete our breif workshop feedback form!
+# Continue Learning
 
+The [Ember guides][ember-guides] are great for diving deep once you understand the fundamentals. They're also versioned so you can be sure you're looking at accurate information for whatever version you happen to be working with.
 
-# Where do I go next?
+The book [Rock n' Roll with Ember.js][rnr-ember] by **Balinti Erdi** slowly introduces concepts and best practices as you build an Ember application. It does an excellent job of walking through major concepts and enabling you to build complete applications.
 
-There are many great resources available to continue your learning with Ember. The book [Rock n' Roll with Ember.js][rnr-ember] by Balinti Erdi is a book that slowly introduces concepts and best practices as you build an Ember application. It crushes the perceived learning curve of Ember and helps to overcome that initial frustration, and help you grok Ember a lot faster, by pinpointing the core concepts and explaining them in detail.
+Ready to explore newer and more advanced aspects of Ember? Check out **Mike North's** multi-blog series titled [Building a performant real-time web app with Ember Fastboot and Phoenix][mnorth].
 
-The Ember guides are great for diving deep once you understand the fundamentals. They're also versioned so you can be sure you're looking at accurate information for whatever version you happen to be working with.
+Learn about authentication in **Vikram Narayan's** blog post: [Authentication with Ember and Firebase - A Newbie Friendly Guide][vnarayan].
 
-# Thanks to everyone who helped out
+Rails developers can visit [From Rails to Ember][cball] by **Chris Ball**  to learn about the similarities and differences between the two frameworks.
 
-## Echobind - Sponsors
+# Special thanks
 
-## Instructors
+Thank you to our sponsors [TEKsystems][tek] and [Echobind][echobind].
 
-### Michael Yared
-
-### Heather Brysiewicz
-
-### Josh Smith
-
-### Xavier Lange
-
-### Trey Hunner
-
-### Scott Newcomer
-
-### Drew Purdy
-
-### Benjamin Rhodes
-
-### Matt Schick
-
+[form]: https://docs.google.com/forms/d/e/1FAIpQLSd8ggxszFSxm3Oe_rX_Yf7p5GE44gB7wAjNumGNHdptN4gB0g/viewform
+[ember-guides]: https://guides.emberjs.com/v2.7.0/
 [rnr-ember]: http://balinterdi.com/rock-and-roll-with-emberjs/
+[mnorth]: https://medium.com/peep-stack/building-a-performant-web-app-with-ember-fastboot-and-phoenix-part-1-fa1241654308#.sg2zfm6mb
+[vnarayan]: http://vikram-s-narayan.github.io/blog/authentication-with-ember-and-firebase-part-1/
+[cball]: http://fromrailstoember.com/
+[tek]: https://www.teksystems.com/
+[echobind]: https://echobind.com/

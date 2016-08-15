@@ -1,9 +1,9 @@
 # Blog post model
 
-For our test application, we're going to create a blog. Let's start off by using a generator to create a model for the blogPost. We'll give it a couple of basic fields and take a look at what happens.
+For our test application, we're going to create a blog. Let's start off by using a generator to create a model for the blogPost.
 
 ```console
-$ ember generate model blog-post title:string body:string
+$ ember generate model blog-post
 installing model
   create app/models/blog-post.js
 installing model-test
@@ -17,8 +17,6 @@ import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 
 export default Model.extend({
-  title: attr('string'),
-  body: attr('string')
 });
 ```
 
@@ -26,7 +24,21 @@ What is that funky syntax?  `import Model from 'ember-data/model` and `export de
 
 Those `import` and `export` statements use ECMAScript 6 module syntax. Thanks to the magic of transpilers, we can already use them today even though no browsers support ES6 yet. This should look familiar if you have used Node.js or AMD modules, there's just slightly different syntax.  We're importing a module from 'ember-data/model' and calling it `Model`.  Then we're extending the `Model` class and using that as our module export.
 
-Our model specifies every field it should have, in this case `title` and `body`.  If we later decide we want another field (perhaps a published date) we just need to add it to our model:
+Now each model should specify the fields that each object of that type contains. In our case, we want a
+blog to include a `title` and a `body`. These are both `string` fields but maybe
+we should keep track of when a blog post was published. We'll call that
+`publishedDate` and no surprise - it's a field of type `date`.
+
+Inside of the `Model.extend({})` object, we can pass the necessary lines that
+add these fields. 
+
+```js
+  title: attr('string'),
+  body: attr('string'),
+  publishedDate: attr('date')
+```
+
+Your file should now look like the following.
 
 ```js
 import Model from 'ember-data/model';
@@ -113,7 +125,7 @@ Let's take a look at the template file that was generated for us in `app/templat
 {{outlet}}
 ```
 
-Just this funky thing called `{{outlet}}`. Ember.js uses handlebars for templating, and the `outlet` variable is a special variable that Ember uses to say "insert any subtemplates here". If you've done anything with Ruby on Rails, think `yield` and you'll be awfully close. We're not adding any subtemplates to our `index` template so let's remove the `{{outlet}}` and add a sample post:
+Just this funky thing called `{{outlet}}`. Ember.js uses handlebars for templating, and the `outlet` variable is a special variable that Ember uses to say "insert any child templates here". If you've done anything with Ruby on Rails, think `yield` and you'll be awfully close. We're not adding any child templates to our `index` template so let's remove the `{{outlet}}` and add a sample post:
 
 ```html
 <article>
@@ -138,7 +150,7 @@ We could manually provide list of blog posts as our model:
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function() {
+  model() {
     return [{
       title: "First post",
       body: "This is the post body."
@@ -153,7 +165,7 @@ Instead let's use the data store to retrieve all of our blog posts:
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function() {
+  model() {
     return this.store.findAll('blog-post');
   }
 });
@@ -172,7 +184,9 @@ Now we should update our index template to loop over each of our blog posts and 
 {{/each}}
 ```
 
-The handlebars each helper allows us to enumerate over a list of items. This should print out all of our blog posts to the page. Let's check out our homepage in our browser again and make sure it worked.
+The handlebars `each` helper allows us to enumerate over a list of items. `each` is considered a block helper due to the use of `{{#each}}` and `{{/each}}`. The `as |post|` syntax sets `post` as a local variable for the duration of the block. 
+
+After making this change, let's check out our homepage in our browser again. We should see a list of all of our blog posts.
 
 # Additional Blog post route(s)
 
@@ -218,8 +232,8 @@ Here it has defined a route for us with a dynamic segment in the path, `:blog_po
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function(params) {
-    return this.store.find('blog-post', params.blog_post_id);
+  model(params) {
+    return this.store.findRecord('blog-post', params.blog_post_id);
   }
 });
 ```
@@ -240,51 +254,17 @@ Since we happen to know there is a blog post with `id: 1` on our API server, we 
 
 # The magic of Ember-Data
 
-Ember-Data's REST Adapter comes with some freebies to save us time and unnecessary code. The adapter that we are using, `JSONAPIAdapter` is an extension of the REST Adapter, so we get to take advantage of this automagic if our application follows the URL conventions expected of the REST Adapter.
+Ember-Data gives us conventions that map ORM methods like save and delete to API URLs and HTTP Verbs. As long as our API follows these conventions, we have to write very little code to fetch and save data. Our API is following the JSON API specification, so we can take full advantage of Ember Data's defaults. If you need to work with an API that doesn't fully conform to Ember Data's built in conventions, don't worry. One of the great things about Ember Data is that it is flexible enough to adapt to any backend.
 
-Based on our route's dynamic URL segments the REST Adapter will make the proper calls to the application's API for the model hook.
+Here is the default mapping Ember Data Methods to API URLs and HTTP Verbs:
 
-<table class="table table-bordered table-striped">
-    <colgroup>
-        <col class="col-xs-2">
-        <col class="col-xs-2">
-        <col class="col-xs-8">
-    </colgroup>
-  <thead>
-    <tr>
-      <td>Action</td>
-      <td>HTTP Verb</td>
-      <td>URL</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Find</td>
-      <td>GET</td>
-      <td>/post/:blog_post_id</td>
-    </tr>
-    <tr>
-      <td>Find All</td>
-      <td>GET</td>
-      <td>/post</td>
-    </tr>
-    <tr>
-      <td>Update</td>
-      <td>PUT</td>
-      <td>/post/:blog_post_id</td>
-    </tr>
-    <tr>
-      <td>Create</td>
-      <td>POST</td>
-      <td>/post</td>
-    </tr>
-    <tr>
-      <td>Delete</td>
-      <td>DELETE</td>
-      <td>/post/:blog_post_id</td>
-    </tr>
-  </tbody>
-</table>
+| Ember Data Method | API HTTP Verb | API URL |
+| --- | --- | ---|
+| findRecord('blog-post', 1) | GET | /blog-posts/1 |
+| findAll('blog-post') | GET | /blog-posts |
+| post.save() _(assuming post with an id)_ | PUT | /blog-posts/:blog_post_id |
+| store.createRecord('blog-post') or post.save() _(post without id)_ | POST | /blog-posts |
+| post.deleteRecord() + post.save() or post.destroyRecord() | DELETE | /blog-posts/:blog_post_id |
 
 **ProTip™** The store action determines the model name based on the defined dynamic segment. In our example `:blog_post_id` contains the proper snake-case name for our model with the suffix `_id` appended.
 
@@ -362,17 +342,17 @@ There are a few helpers available to us that we will use **a lot** when writing 
 
 Since `visit` and `click` are both asynchronous helpers we need to wrap subsequent logic in `andThen` to make sure actions complete before continuing onto the next step.
 
+The really cool thing about asynchronous test helpers is that they run in a queue, automatically waiting for any previous asynchronous test helpers to finish running.
+
 Now we will code out the steps listed above to test that we can link to a blog post from index.
 
 ```js
 test('visit blog post from index', function(assert) {
-  visit('/');
   let blogSelector = 'article:first-of-type a';
 
-  andThen(function() {
-    click(blogSelector);
-  });
-
+  visit('/');
+  click(blogSelector);
+  
   andThen(function() {
     assert.equal(currentURL(), '/post/1');
   });
