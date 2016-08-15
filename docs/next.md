@@ -8,7 +8,7 @@ The [Ember guides][ember-guides] are great for diving deep once you understand t
 
 The book [Rock n' Roll with Ember.js][rnr-ember] by **Balinti Erdi** slowly introduces concepts and best practices as you build an Ember application. It does an excellent job of walking through major concepts and enabling you to build complete applications.
 
-Ready to explore newer and more advanced aspects of Ember? Check out **Mike North's** multi-blog series titled [Building a performant real-time web app with Ember Fastboot and Phoenix][mnorth].
+Ready to explore newer and more advanced aspects of Ember? Check out **Mike North's** multi-part blog post titled [Building a performant real-time web app with Ember Fastboot and Phoenix][mnorth].
 
 Learn about authentication in **Vikram Narayan's** blog post: [Authentication with Ember and Firebase - A Newbie Friendly Guide][vnarayan].
 

@@ -32,13 +32,13 @@ Ember makes many of these decisions for us through conventions. Conventions are 
 
 0. A developer can join any Ember project and immediately start making meaningful contributions.
 0. Projects are organized, so you'll know the application structure and files are where you would expect them to be. 
-0. Developers can focus on building what's specific about their app and let the Ember handle the aspects that are common to all applications.
+0. Developers can focus on building what's specific about their app and let Ember handle the aspects that are common to all applications.
 0. Substantial improvements are introduced to Ember through an [RFC process][rfc] where ideas are debated and  feedback is gathered.
 0. These strong opinions come from an amazing [core team][core] and [community][community].
 
 # Ember CLI
 
-[Ember CLI][ember-cli] is a command line interface (CLI) that helps manage and enforce *conventions* of the Ember framework. We'll dive into these choices in more detail later, but at a high level Ember-CLI builds in:
+[Ember CLI][ember-cli] is a command line interface (CLI) that helps manage and enforce *conventions* of the Ember framework. We'll dive into these choices in more detail later, but at a high level Ember CLI builds in:
 
 * A broccoli-powered asset pipeline
 * A strong project structure

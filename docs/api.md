@@ -48,11 +48,11 @@ Our API is setup at https://sandiego-ember-cli-101.herokuapp.com supporting the 
   </tbody>
 </table>
 
-Our API uses `snake_case` in the JSON it sends, the convention for Ruby on Rails APIs. Ember expects everything to be `camelCase`, so how can we connect these two nicely? Fortunately, we can use an Ember Data adapter to consumer our API and adapt it to the style we use in Ember.
+Our API uses `snake_case` in the JSON it sends, the convention for Ruby on Rails APIs. Ember expects everything to be `camelCase`, so how can we connect these two nicely? Fortunately, we can use an Ember Data adapter to consume our API and adapt it to the style we use in Ember.
 
 ## Application Adapter
 
-We can set up an adapter at the level of an individual model, but since we'll be using the same API for all our models, let's set one up for the entire application:
+We can set up an adapter at the level of an individual model, but since we'll be using the same API for all our models, let's set one up for the entire application. Type the following line into terminal: `ember generate adapter application`
 
 ```console
 $ ember generate adapter application
@@ -74,7 +74,10 @@ export default JSONAPIAdapter.extend({
 
 We're using an Ember Data built-in adapter called the JSONAPIAdapter. Building a custom adapter isn't too hard, but we don't need to because we're going to use the default.
 
-Finally, to point our Ember app at the API we've set up, let's go back to our server, hit `CTRL-C` to stop it, and restart `ember serve` using the proxy option to point Ember to the API we want to access:
+Finally, to point our Ember app at the API we've set up, let's go back to our server, hit `CTRL-C` to stop it, and restart `ember serve` using the proxy option to point Ember to the API we want to access.
+
+0. Close ember by pressing `CTRL-C`
+0. Type `ember serve --proxy https://ember-101-api.herokuapp.com` in your terminal window.
 
 ```console
 $ ember serve --proxy https://ember-101-api.herokuapp.com

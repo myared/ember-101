@@ -1,9 +1,9 @@
 # Ready to code!
 
-Now that we have reviewed the contents ember-cli sets us up with for development, we are ready to get coding. One of the many commands ember-cli provides us is `serve` which will launch the server with live-reload. Any time we make changes to the application we should see this instantly reflected in any of the browser we have open to the server.
+Now that we have reviewed the contents Ember CLI sets us up with for development, we are ready to get coding. One of the many commands Ember CLI provides us is `serve` which will launch the server with live-reload. Any time we make changes to the application we should see this instantly reflected in any of the browser we have open to the server.
 
 0. `ember serve`
-0. Visit [http://localhost:4200](http://localhost:4200) in your browser
+0. Visit [http://localhost:4200](http://localhost:4200) in your browser and you should see a message that says "Congratulations, you made it!" with a friendly Tomster wearing a construction hat. 
 
 # Install Bootstrap
 

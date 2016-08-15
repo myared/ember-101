@@ -1,4 +1,4 @@
-# Project Organization: High level
+# Project Organization
 
 In the [Pre-event setup instructions][pre-event] section you generated a new ember project called `workshop`. Let's step inside and start exploring:
 
@@ -19,19 +19,25 @@ tests
 vendor
 ```
 
-## Node Moduules
+## Node Modules
 
-The first thing to notice is the file `package.json` and the directory `node_modules`. These are from [NPM][npm], and if you're new to NPM, take a look at what is in the `package.json` file. This file contains information about what NPM modules are required to run and develop our app. You'll see that the packages needed for broccoli and Ember-CLI are specified here. When using Ember-CLI you won't often edit this directly. If you were to install any Ember-CLI addons yourself, you would see them show up in here as well. The packages specified in `package.json` will be installed in the `node_modules` directory.
+The first thing to notice is the file `package.json` and the directory `node_modules`. These are from [NPM][npm], and if you're new to NPM, take a look at what is in the `package.json` file. This file contains information about what NPM modules are required to run and develop our app. You'll see that the packages needed for broccoli and Ember CLI are specified here. When using Ember CLI you won't often edit this directly. If you were to install any Ember CLI addons yourself, you would see them show up in here as well. The packages specified in `package.json` will be installed in the `node_modules` directory.
 
 ## Bower Components
 
-The next thing to look at is the file `bower.json` and the `bower_components` directory. These are similar to `package.json` and `node_modules`. Bower has become the standard for front-end package management and our Ember-CLI application will use it to manage some of our dependencies. If you open up `bower.json` you'll see that our application comes out of the box with not only Ember but Ember Data (for data persistence), and QUnit (for testing).
+The next thing to look at is the file `bower.json` and the `bower_components` directory. These are similar to `package.json` and `node_modules`. Bower has become the standard for front-end package management and our Ember CLI application will use it to manage some of our dependencies. If you open up `bower.json` you'll see that our application comes out of the box with not only Ember but Ember Data (for data persistence), and QUnit (for testing).
 
 ## Tests
 
-Ember-CLI comes out-of-the box with a testing framework and provides some helpers to make testing easier. You can test models, routes, controllers and components, and you can test user flows.
+Ember CLI comes out-of-the box with a testing framework and provides some helpers to make testing easier. You can test models, routes, controllers and components, and you can test user flows.
 
 Unit tests allow us to focus on specific functionality of a module and do not require the entire Ember application be running. Acceptance tests, also called integration or acceptance tests, are used to test the flow of your app. They emulate user interactions throughout your application and using helpers you can make assertions about the expected functionality.
+
+Types of tests:
+
+* Unit tests
+* Integration tests
+* Acceptance tests
 
 ## Public and Vendor
 
@@ -58,7 +64,7 @@ styles
 templates
 ```
 
-Some of these may sound familiar to you, while others may be brand new.  Don't worry yet if you don't know what all of these different pieces are.  We'll get to them one by one.
+Some of these may sound familiar to you, while others may be brand new.  Don't worry yet if you don't know what all of these different pieces are.  We'll get to them one-by-one.
 
 [pre-event]: index.md#pre-event-setup-instructions
 [npm]: https://www.npmjs.com/
