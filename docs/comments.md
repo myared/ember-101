@@ -97,7 +97,7 @@ You must fill out the `needs` property to tell Ember about the comment dependenc
 For the same block in `tests/unit/models/comment-test.js`, to tell Ember about the blog post dependency:
 
 ```js
-  needs: ['model:blogPost']
+  needs: ['model:blog-post']
 ```
 
 # Show comments on a blog post
@@ -197,7 +197,7 @@ Let's add this new component to our `blog-post.hbs`
 Now if we open up our `comment-form.hbs` component template we can add in our form. When we open this up, we'll initially see a `{{yield}}` statement. Components can either be rendered alone or can wrap in a block form. For our example we're going to keep it simple and render only the component. Replace the existing `{{yield}}` statement with the following:
 
 ```handlebars
-<form {{action 'saveComment' on='submit'}}>
+<form {{action 'saveComment' commentContent on='submit'}}>
   <div class="form-group">
     {{textarea value=commentContent class='form-control' rows='3'}}
   </div>
@@ -234,9 +234,10 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   actions: {
     saveComment(comment) {
-      let blogPost = this.controller.get('model');
-      this.store.createRecord('comment', {
-        blogPost: blogPost,
+      let blogPost = this.modelFor(this.routeName);
+      
+      return this.store.createRecord('comment', {
+        blogPost,
         content: comment
       }).save();
     }
@@ -249,7 +250,7 @@ Actions in Ember are handled in the `actions: {}` hash on an object. We're going
 We have to pass this action into our component when we create it so it knows what action to use on submission so let's add it back in our `blog-post.hbs`:
 
 ```handlebars
-{{comment-form saveComment='saveComment'}}
+{{comment-form saveComment=(action 'saveComment')}}
 ```
 
 We're almost there! Now we just need to handle the action behavior inside the component. The component is still responsible for sending the action up. Let's open up our `comment-form.js` and add this:
@@ -261,10 +262,10 @@ export default Ember.Component.extend({
   commentContent: '',
 
   actions: {
-    saveComment() {
-      let comment = this.get('commentContent');
-      this.sendAction('saveComment', comment);
-      this.set('commentContent', '');
+    saveComment(commentContent) {
+      this.saveComment(commentContent).then(() => {
+        this.set('commentContent', '');
+      });
     }
   }
 });
