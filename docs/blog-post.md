@@ -192,7 +192,7 @@ What if we want to share a link to one of our blog posts?  To do that, we would 
 Let's start by using a generator to make the new files we'll need:
 
 ```console
-$ ember generate route blog-post --path=/post/:blog_post_id
+$ ember generate route blog-post
 installing route
   create app/routes/blog-post.js
   create app/templates/blog-post.hbs
@@ -214,15 +214,25 @@ const Router = Ember.Router.extend({
 });                                         
                                             
 Router.map(function() {                     
-  this.route('blog-post', {                 
-    path: '/post/:blog_post_id'             
-  });                                       
+  this.route('blog-post');
 });                                         
                                             
 export default Router;                      
 ```
 
-Here it has defined a route for us with a dynamic segment in the path, `:blog_post_id`. This dynamic segment will be extracted from the URL and passed into the `model` hook on the `post` route. We can then use this parameter to look up that exact `blog-post` in the data store. So let's open up `app/routes/blog-post.js` that was generated for us and do just that.
+Ember generated a route definition for us. This type of route would be useful for a static page, like `about` or an index of Blog Posts. We need to make a small modification to give us the URL we want (`/posts/1`) as well as give us a way to determine the post id from the URL. The `path` option to a route definition allows us to just that:
+
+```js
+Router.map(function() {                     
+  this.route('blog-post', {
+    path: '/post/:blog_post_id'
+  });
+});                                         
+```
+
+This tells the Ember Router how to construct the URL, including a dynamic segment of `:blog_post_id`. This dynamic segment will be extracted from the URL and passed into the `model` hook on the `blog-post` route. We can then use this parameter to look up that exact `blog-post` in the data store. So let's open up `app/routes/blog-post.js` that was generated for us and do just that.
+
+_Note: you can also pass `--path=/post/:blog_post_id` when generating a Route to do this step automatically._
 
 ```js
 import Ember from 'ember';
