@@ -1,62 +1,31 @@
 # Accessing our API with ember-data
 
-Ember is a client side framework and so when we have data that we want to persist we need a back-end API.  We want an API to serve up our blog posts and allow users to view and submit comments.
+Ember is a client side framework, so we need an API (backend) when we have data that we want to persist. We will use our API to serve blog posts and to allow users to view and submit comments.
 
-We could use fixtures or a mock API but some friendly back-end developers have already made a working API for us so let's use that.
+We could use fixtures or a mock API to do this, but some friendly developers have already made a working API for us. The API is setup at [https://emberlou-workshop.herokuapp.com](https://emberlou-workshop.herokuapp.com) supporting the following endpoints
 
-Our API is setup at https://sandiego-ember-cli-101.herokuapp.com supporting the following endpoints
+| Verb | path | Description |
+| --- | --- | --- |
+| GET | /blog-posts | List of blog posts |
+| GET | /blog-posts/:id | Retrieve a blog post |
+| PUT | /blog-posts/:id | Update a blog post |
+| DELETE | /blog-posts/:id | Delete a blog post |
+| GET | /comments | List of comments |
+| POST | /comments | Add a comment |
+| GET | /comments | Retrieve a comment |
+| PUT | /comments/:id | Update a comment |
+| DELETE | /comments/:id | Delete a comment |
 
-<table class="table table-bordered table-striped">
-  <colgroup>
-    <col class="col-xs-1">
-    <col class="col-xs-3">
-    <col class="col-xs-5">
-  </colgroup>
-  <thead>
-    <tr>
-      <th>Verb</th><th>path</th><th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-        <td>GET</td><td>/blog-posts</td><td>List of blog posts</td>
-    </tr>
-    <tr>
-        <td>GET</td><td>/blog-posts/:id</td><td>Retrieve a post</td>
-    </tr>
-    <tr>
-        <td>PUT</td><td>/blog-posts/:id</td><td>Update a post</td>
-    </tr>
-    <tr>
-        <td>DELETE</td><td>/blog-posts/:id</td><td>Delete a post</td>
-    </tr>
-    <tr>
-        <td>GET</td><td>/comments</td><td>List of blog comments</td>
-    </tr>
-    <tr>
-        <td>POST</td><td>/comments</td><td>Add a blog comment</td>
-    </tr>
-    <tr>
-        <td>GET</td><td>/comments/:id</td><td>Retrieve a comment</td>
-    </tr>
-    <tr>
-        <td>PUT</td><td>/comments/:id</td><td>Update a comment</td>
-    </tr>
-    <tr>
-        <td>DELETE</td><td>/comments/:id</td><td>Delete a comment</td>
-    </tr>
-  </tbody>
-</table>
+Our API uses `snake_case` in the JSON it sends, the convention for Ruby on Rails APIs. Ember expects everything to be `camelCase`. 
 
-Our API uses `snake_case` in the JSON it sends, the convention for Ruby on Rails APIs. Ember expects everything to be `camelCase`, so how can we connect these two nicely? Fortunately, we can use an Ember Data adapter to consume our API and adapt it to the style we use in Ember.
+So how can we connect these two nicely? Let's create an Ember Data adapter to consume our API and adapt the API responses to what Ember expects.
 
 ## Application Adapter
 
-We can set up an adapter at the level of an individual model, but since we'll be using the same API for all our models, let's set one up for the entire application. Type the following line into terminal: `ember generate adapter application`
+We could create adapters at a model level, but let's create one for the entire application since we'll be using the same API for all our models. Type the following line into terminal: `ember generate adapter application`
 
 ```console
 $ ember generate adapter application
-version: 0.2.2
   installing
     create app/adapters/application.js
   installing
@@ -66,22 +35,23 @@ version: 0.2.2
 Let's open up that adapter and see what is there:
 
 ```js
-import JSONAPIAdapter from 'ember-data/adapters/json-api';
+import DS from 'ember-data';
 
-export default JSONAPIAdapter.extend({
+export default DS.JSONAPIAdapter.extend({
 });
 ```
 
 We're using an Ember Data built-in adapter called the JSONAPIAdapter. Building a custom adapter isn't too hard, but we don't need to because we're going to use the default.
 
-Finally, to point our Ember app at the API we've set up, let's go back to our server, hit `CTRL-C` to stop it, and restart `ember serve` using the proxy option to point Ember to the API we want to access.
+The last step we need to take is to point our Ember app to the API we want to use. Hit `CTRL-C` to stop Ember from running and restart Ember using the `ember serve` command with the `--proxy ` flag to point to our API. 
 
 0. Close ember by pressing `CTRL-C`
-0. Type `ember serve --proxy https://ember-101-api.herokuapp.com` in your terminal window.
+0. Type `ember serve --proxy https://emberlou-workshop.herokuapp.com` in your terminal window.
 
 ```console
-$ ember serve --proxy https://ember-101-api.herokuapp.com
-Proxying to https://ember-101-api.herokuapp.com
+$ ember serve --proxy https://emberlou-workshop.herokuapp.com
+Proxying to https://emberlou-workshop.herokuapp.com
 Livereload server on http://localhost:49152
 Serving on http://localhost:4200/
 ```
+If you wanted to see the code at the end of this step, check out the `step2` branch using the following command: `git checkout step2`.
