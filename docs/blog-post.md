@@ -13,43 +13,38 @@ installing model-test
 OK, Ember-CLI has just created for us both a model file in `app/models` and a test file in `tests/unit/models`.  Let's take a look at the model and see what it contains:
 
 ```js
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
-
-export default Model.extend({
-});
+import DS from 'ember-data';    
+                                
+export default DS.Model.extend({
+                                
+});                             
 ```
 
-What is that funky syntax?  `import Model from 'ember-data/model` and `export default Model.extend()`?  Welcome to the world of tomorrow!
-
-Those `import` and `export` statements use ECMAScript 6 module syntax. Thanks to the magic of transpilers, we can already use them today even though no browsers support ES6 yet. This should look familiar if you have used Node.js or AMD modules, there's just slightly different syntax.  We're importing a module from 'ember-data/model' and calling it `Model`.  Then we're extending the `Model` class and using that as our module export.
+What is the funky `import` and `export` syntax?  Welcome to the world of tomorrow! Those `import` and `export` statements use ECMAScript 6 module syntax. Thanks to the magic of transpilers, we can use future syntax today even though browsers don't yet support the standard. This should look familiar if you have used Node.js or AMD modules. We're importing a module from 'ember-data'.  Then we're extending the `Model` class and using that as our module export.
 
 Now each model should specify the fields that each object of that type contains. In our case, we want a
 blog to include a `title` and a `body`. These are both `string` fields but maybe
 we should keep track of when a blog post was published. We'll call that
-`publishedDate` and no surprise - it's a field of type `date`.
+`publishedDate`. Perhaps it's no surprise, but that field is of type `date`.
 
-Inside of the `Model.extend({})` object, we can pass the necessary lines that
-add these fields. 
+Inside of the `DS.Model.extend({})` object, we can add the necessary lines for these fields:
 
 ```js
-  title: attr('string'),
-  body: attr('string'),
-  publishedDate: attr('date')
+  title: DS.attr('string'),
+  body: DS.attr('string'),
+  publishedDate: DS.attr('date')
 ```
 
 Your file should now look like the following.
 
 ```js
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
+import DS from 'ember-data';    
 
-export default Model.extend({
-  title: attr('string'),
-  body: attr('string'),
-  publishedDate: attr('date')
+export default DS.Model.extend({
+  title: DS.attr('string'),
+  body: DS.attr('string'),
+  publishedDate: DS.attr('date')
 });
-
 ```
 
 ## Test our blog post model
@@ -85,7 +80,7 @@ The first section you see, `moduleForModel`, is where any necessary loading for 
 
 The next section, `test`, shows how we define an individual test. One test can have many assertions but should test only one thing. The generator created a default test which asserts that our model exists.
 
-Since we have about as much as we can test in here already for our small model, let's make sure the tests pass by visiting `http://localhost:4200/tests` in your browser.
+Since we have about as much as we can test in here already for our small model, let's make sure the tests pass by visiting [http://localhost:4200/tests](http://localhost:4200/tests) in your browser.
 
 # Adding blog posts to the homepage
 
@@ -104,7 +99,7 @@ installing route-test
   create tests/unit/routes/index-test.js
 ```
 
-**ProTip™** If you ever need to know what generators are available, just type `ember help generate` and enjoy a deliciously long list of generating goodness.
+**ProTip** If you ever need to know what generators are available, just type `ember help generate` and enjoy a deliciously long list of generating goodness.
 
 This creates a few files for our index route and template file.
 
@@ -125,7 +120,7 @@ Let's take a look at the template file that was generated for us in `app/templat
 {{outlet}}
 ```
 
-Just this funky thing called `{{outlet}}`. Ember.js uses handlebars for templating, and the `outlet` variable is a special variable that Ember uses to say "insert any child templates here". If you've done anything with Ruby on Rails, think `yield` and you'll be awfully close. We're not adding any child templates to our `index` template so let's remove the `{{outlet}}` and add a sample post:
+All we see is something called `{{outlet}}`. Ember.js uses handlebars for templating, and the `outlet` variable is a special variable that Ember uses to say "insert any child templates here". This is similar to `yield` if you've worked with Ruby on Rails before. We're not adding any child templates to our `index` template, so let's remove the `{{outlet}}` and add a sample post:
 
 ```html
 <article>
@@ -159,7 +154,7 @@ export default Ember.Route.extend({
 });
 ```
 
-Instead let's use the data store to retrieve all of our blog posts:
+Instead, let's use the data store to retrieve all of our blog posts:
 
 ```js
 import Ember from 'ember';
@@ -186,7 +181,7 @@ Now we should update our index template to loop over each of our blog posts and 
 
 The handlebars `each` helper allows us to enumerate over a list of items. `each` is considered a block helper due to the use of `{{#each}}` and `{{/each}}`. The `as |post|` syntax sets `post` as a local variable for the duration of the block. 
 
-After making this change, let's check out our homepage in our browser again. We should see a list of all of our blog posts.
+After making this change, let's check out our homepage in our browser. You should now see two blog posts!
 
 # Additional Blog post route(s)
 
@@ -210,20 +205,21 @@ installing route-test
 This creates a few files, and also adds some stuff to your  `app/router.js`:
 
 ```js
-import Ember from 'ember';
-import config from './config/environment';
-
-const Router = Ember.Router.extend({
-  location: config.locationType
-});
-
-Router.map(function() {
-  this.route('blog-post', {
-    path: '/post/:blog_post_id'
-  });
-});
-
-export default Router;
+import Ember from 'ember';                  
+import config from './config/environment';  
+                                            
+const Router = Ember.Router.extend({        
+  location: config.locationType,            
+  rootURL: config.rootURL                   
+});                                         
+                                            
+Router.map(function() {                     
+  this.route('blog-post', {                 
+    path: '/post/:blog_post_id'             
+  });                                       
+});                                         
+                                            
+export default Router;                      
 ```
 
 Here it has defined a route for us with a dynamic segment in the path, `:blog_post_id`. This dynamic segment will be extracted from the URL and passed into the `model` hook on the `post` route. We can then use this parameter to look up that exact `blog-post` in the data store. So let's open up `app/routes/blog-post.js` that was generated for us and do just that.
@@ -254,8 +250,7 @@ Since we happen to know there is a blog post with `id: 1` on our API server, we 
 
 # The magic of Ember-Data
 
-Ember-Data gives us conventions that map ORM methods like save and delete to API URLs and HTTP Verbs. As long as our API follows these conventions, we have to write very little code to fetch and save data. Our API is following the JSON API specification, so we can take full advantage of Ember Data's defaults. If you need to work with an API that doesn't fully conform to Ember Data's built in conventions, don't worry. One of the great things about Ember Data is that it is flexible enough to adapt to any backend.
-
+Ember-Data gives us conventions that map ORM methods like save and delete to API URLs and HTTP Verbs. As long as our API follows these conventions, we have to write little code to fetch and save data. Our API is following the [JSON API specification][jsonapi]. So, we can take full advantage of Ember Data's defaults. If you need to work with an API that doesn't conform to Ember Data's built in conventions, don't worry. One of the great things about Ember Data is that it is flexible enough to adapt to any backend.
 Here is the default mapping Ember Data Methods to API URLs and HTTP Verbs:
 
 | Ember Data Method | API HTTP Verb | API URL |
@@ -266,7 +261,7 @@ Here is the default mapping Ember Data Methods to API URLs and HTTP Verbs:
 | store.createRecord('blog-post') or post.save() _(post without id)_ | POST | /blog-posts |
 | post.deleteRecord() + post.save() or post.destroyRecord() | DELETE | /blog-posts/:blog_post_id |
 
-**ProTip™** The store action determines the model name based on the defined dynamic segment. In our example `:blog_post_id` contains the proper snake-case name for our model with the suffix `_id` appended.
+**ProTip** The store action determines the model name based on the defined dynamic segment. In our example `:blog_post_id` contains the proper snake-case name for our model with the suffix `_id` appended.
 
 To confirm that this works, **delete the `app/routes/blog-post.js` file** and verify that our blog post page (http://localhost:4200/post/1) still works properly after reload.
 
@@ -344,7 +339,7 @@ Since `visit` and `click` are both asynchronous helpers we need to wrap subseque
 
 The really cool thing about asynchronous test helpers is that they run in a queue, automatically waiting for any previous asynchronous test helpers to finish running.
 
-Now we will code out the steps listed above to test that we can link to a blog post from index.
+We will now code the steps listed above to test that we can link to a blog post from index.
 
 ```js
 test('visit blog post from index', function(assert) {
@@ -358,5 +353,17 @@ test('visit blog post from index', function(assert) {
   });
 });
 ```
+Verify the tests are passing by visiting [http://localhost:4200/tests](http://localhost:4200/tests) in the browser.
 
-Verify the tests are passing by visiting `http://localhost:4200/tests` in the browser.
+# Recap
+
+We now:
+
+* have blog posts
+* are able to retrieve them from an API and list them
+* can view individual posts
+* have an acceptance test that ensures the functionality to visit an individual post works
+
+If you wanted to see the code at the end of this step, check out the `step3` branch using the following command: `git checkout step3`.
+
+[jsonapi]: http://jsonapi.org
