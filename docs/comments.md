@@ -237,9 +237,12 @@ Actions in Ember are handled in the `actions: {}` hash on an object. We're going
 We have to pass this action into our component when we create it so it knows what action to use on submission so let's add it back in our `blog-post.hbs`:
 
 ```handlebars
-{{comment-form saveComment=(route-action 'saveComment')}}
+{{comment-form saveComment=(action 'saveComment')}}
 ```
-Now we need to handle the action behavior inside the component. The component is still responsible for sending the action up. Let's open up our `comment-form.js` and add this:
+
+We haven't seen this parenthesis syntax yet in handlbars. This is called a handlbars subexpression. In Ember, subexpressions are most commonly used to "wrap up" an action as a function and pass it down to a component to call later. In JavaScript, the wrapping up is handled by using a [closure function](http://javascriptissexy.com/understand-javascript-closures-with-ease), so you'll hear these special actions referred to as "Closure Actions".
+
+Next, we need to handle the action behavior inside the component. The component is still responsible for sending the action up. Let's open up our `comment-form.js` and add this:
 
 ```js
 import Ember from 'ember';
@@ -257,12 +260,20 @@ export default Ember.Component.extend({
 });
 ```
 
+We grab our Closure Action that was passed in to the component, and call it just like any other JavaScript function. We expect our action to return the result of `comment.save()` operation (a Promise) and leverage `.then` to reset the value bound to our comment form when the Promise has returned.
+
 We're almost there! 
 
-Because our parent action lives in the `route` and not in a `controller`, we need to install a helper addon to support route-actions. Type:
+If you try this now, you'll get an error complaining that Ember can't find our action on a controller. Because our parent action lives in the `route` and not in a `controller`, we need to install a helper addon to support route-actions. This gives us a simpler model for data flow in our applications. Type:
 
 ```console
 ember install ember-route-action-helper
+```
+
+Then update the action we passed to the component to use `route-action`:
+
+```handlebars
+{{comment-form saveComment=(route-action 'saveComment')}}
 ```
 
 Now reset your ember server by pressing `CTRL-C` and typing `ember serve --proxy https://emberlou-workshop.herokuapp.com`. 
