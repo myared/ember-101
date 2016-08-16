@@ -21,23 +21,30 @@ vendor
 
 ## Node Modules
 
-The first thing to notice is the file `package.json` and the directory `node_modules`. These are from [NPM][npm], and if you're new to NPM, take a look at what is in the `package.json` file. This file contains information about what NPM modules are required to run and develop our app. You'll see that the packages needed for broccoli and Ember CLI are specified here. When using Ember CLI you won't often edit this directly. If you were to install any Ember CLI addons yourself, you would see them show up in here as well. The packages specified in `package.json` will be installed in the `node_modules` directory.
+The first file and directory to inspect are those provided by [npm][npm]:
+
+* `package.json`
+* `/node_modules/`
+
+`package.json` contains a list of the versioned npm modules necessary for this app. Included are broccoli and Ember CLI. We won't need to edit this file because we're using Ember CLI to manage it. 
+
+The `node_modules` folder is where npm modules are installed. As a result, any package specified in `package.json` will live in the `node_modules` directory.
 
 ## Bower Components
 
-The next thing to look at is the file `bower.json` and the `bower_components` directory. These are similar to `package.json` and `node_modules`. Bower has become the standard for front-end package management and our Ember CLI application will use it to manage some of our dependencies. If you open up `bower.json` you'll see that our application comes out of the box with not only Ember but Ember Data (for data persistence), and QUnit (for testing).
+The next thing to look at is the file `bower.json` and the `bower_components` directory. These are like `package.json` and `node_modules`. 
+
+Bower has become the standard for frontend package management. Our Ember CLI application will use bower to manage some of our dependencies. Open `bower.json` to see that our app comes with Ember, Ember Data (for data persistence), and QUnit (for testing).
 
 ## Tests
 
-Ember CLI comes out-of-the box with a testing framework and provides some helpers to make testing easier. You can test models, routes, controllers and components, and you can test user flows.
+Ember CLI comes out-of-the box with a testing framework and provides some helpers to make testing easier. You can test models, routes, components, and user stories.
 
-Unit tests allow us to focus on specific functionality of a module and do not require the entire Ember application be running. Acceptance tests, also called integration or acceptance tests, are used to test the flow of your app. They emulate user interactions throughout your application and using helpers you can make assertions about the expected functionality.
+**Unit tests** allow us to focus on specific functionality of a module and do not require the entire Ember app to be running. 
 
-Types of tests:
+**Integration tests** are for testing components in isolation. 
 
-* Unit tests
-* Integration tests
-* Acceptance tests
+**Acceptance tests** are for testing high level stories. They emulate user interactions throughout your app and you can make assertions about the expected functionality.
 
 ## Public and Vendor
 
