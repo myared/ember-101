@@ -7,58 +7,19 @@ Now that we have reviewed the contents Ember CLI sets us up with for development
 
 # Install Bootstrap
 
-Let's use Bootstrap to make our website look nice. This step isn't strictly necessary but it'll make our application snazzier without us having to do much styling work.
+Let's use Bootstrap to make our website look nice. This step isn't strictly necessary, but it will make our application look nice.
 
 ```console
-$ bower install bootstrap --save
+ember install ember-bootstrap
 ```
 
-Now we need to include the Bootstrap CSS into our build process.  Let's add the following to our `ember-cli-build.js` just above `return app.toTree();`:
+**ProTip™** As we mentioned, Ember CLI uses live reloading to show the latest changes to your browser without needing to reload the browser. As long as `http://localhost:4200/` is open, you'll see changes immediately. Neat! However, if you edit install addons like we just did, you will need to **stop** and **start** `ember serve` again. Then refresh `http://localhost:4200/` and you will see your changes.
 
-```js
-app.import('bower_components/bootstrap/dist/css/bootstrap.css');
+You should now see that the font for "Welcome to Ember" has changed! 
+
+Now let's add a big header introducing our blog.  Let's update our `application.hbs` file to add a jumbotron header and wrap our page content in a Bootstrap `container`. Edit `/app/templates/application.hbs` to match:
+
 ```
-
-Our `ember-cli-build.js` should look something like this now:
-
-```js
-/*jshint node:true*/
-/* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
-
-module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    // Add options here
-  });
-
-  // Use `app.import` to add additional libraries to the generated
-  // output files.
-  //
-  // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
-  // object's keys should be the environment name and the values
-  // should be the asset to use in that environment.
-  //
-  // If the library that you are including contains AMD or ES6
-  // modules that you would like to import into your application
-  // please specify an object with the list of modules as keys
-  // along with the exports of each module as its value.
-
-  // Add bootstrap to our build
-  app.import('bower_components/bootstrap/dist/css/bootstrap.css');
-
-  return app.toTree();
-};
-```
-
-**ProTip™** As we mentioned before, ember-cli uses live-reloading to persist changes to the browser without the need of reloading. As long as `http://localhost:4200/` is open, you'll see changes immediately. Neat! However, if you edit `ember-cli-build.js`, like we just did in this step, you will need to **kill** and **restart** `ember serve`. Then refresh `http://localhost:4200/`.
-
-The font of our header should have changed.
-
-Now let's add a big header introducing our blog.  Let's update our `application.hbs` file to add a jumbotron header and wrap our page content in a Bootstrap `container`:
-
-```handlebars
-{% raw %}
 <div class="jumbotron">
   <div class="container">
     <h1>Bernice's Blog</h1>
@@ -68,7 +29,6 @@ Now let's add a big header introducing our blog.  Let's update our `application.
 <div class="container">
   {{outlet}}
 </div>
-{% endraw %}
 ```
 
 Our site should have refreshed in our web browser now, revealing a big header for our blog.
