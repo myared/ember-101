@@ -16,7 +16,11 @@ Learn about authentication in **Vikram Narayan's** blog post: [Authentication wi
 
 Rails developers can visit [From Rails to Ember][cball] by **Chris Ball**  to learn about the similarities and differences between the two frameworks.
 
-# Special thanks
+# Special Thanks
+
+This is the third iteration of this workshop. HUGE thanks to [Heather Brysiewicz][heather], [Josh Smith][josh] and the [San Diego Ember Meetup][sandiego] for putting together the content for this workshop in April 2015 and April 2016!
+
+# Our Sponsors
 
 Thank you to our sponsors [TEKsystems][tek] and [Echobind][echobind].
 
@@ -27,5 +31,8 @@ Thank you to our sponsors [TEKsystems][tek] and [Echobind][echobind].
 [mnorth]: https://medium.com/peep-stack/building-a-performant-web-app-with-ember-fastboot-and-phoenix-part-1-fa1241654308#.sg2zfm6mb
 [vnarayan]: http://vikram-s-narayan.github.io/blog/authentication-with-ember-and-firebase-part-1/
 [cball]: http://fromrailstoember.com/
+[heather]: http://twitter.com/caligoanimus
+[josh]: http://twitter.com/joshsmith
+[sandiego]: http://www.meetup.com/sandiego-ember/events/228231120/
 [tek]: https://www.teksystems.com/
 [echobind]: https://echobind.com/
