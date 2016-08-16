@@ -25,7 +25,7 @@ export default DS.Model.extend({
 Although we could have specified content when generating the model, let's add it by hand instead. Inside of the `DS.Model.extend` object, let's drop in the necessary line.
 
 ```js
-  content: attr('string')
+  content: DS.attr('string')
 ```
 
 But our comments need to be aware of our blog posts and vice versa. We're going to add a one-to-many relationship, which is built into Ember Data for us. 
@@ -37,7 +37,7 @@ The comments need a `DS.belongsTo` since a comment belongs to a blog post:
 Just like `content`, place this inside the object inside the `DS.Model.extend` call. 
 
 ```js
-  blogPost: belongsTo('blog-post')
+  blogPost: DS.belongsTo('blog-post')
 ```
 
 What about the relationship from a blog to comments? We need to add that
@@ -259,7 +259,7 @@ export default Ember.Component.extend({
 
 We're almost there! 
 
-Because our parent action lives in the `route`` and not in a `controller`, we need to install a helper addon to support route-actions. Type:
+Because our parent action lives in the `route` and not in a `controller`, we need to install a helper addon to support route-actions. Type:
 
 ```console
 ember install ember-route-action-helper
